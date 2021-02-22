@@ -11,12 +11,9 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.Test;
 
-
 public class CodeGenerator {
-
     @Test
-    public void main1() {
-
+    public  void main1(){
         // 1、创建代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
