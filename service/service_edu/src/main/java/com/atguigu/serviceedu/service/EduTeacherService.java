@@ -1,7 +1,14 @@
 package com.atguigu.serviceedu.service;
 
 import com.atguigu.serviceedu.entity.EduTeacher;
+import com.atguigu.serviceedu.query.TeacherQuery;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +20,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduTeacherService extends IService<EduTeacher> {
 
+    void pageQuery(Page<EduTeacher> page, TeacherQuery teacherQuery);
 }
