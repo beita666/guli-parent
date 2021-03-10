@@ -5,7 +5,7 @@ import com.atguigu.commonutils.Rr;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/eduservice/user")
+@RequestMapping("/serviceedu/user")
 @CrossOrigin
 public class EduLoginController {
 

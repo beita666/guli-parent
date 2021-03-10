@@ -7,9 +7,7 @@ import com.atguigu.serviceedu.query.TeacherQuery;
 import com.atguigu.serviceedu.service.EduTeacherService;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,16 +50,17 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "分页讲师列表")
-    @GetMapping("{page}/{limit}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page",value = "当前页码",required = true,dataType = "Long"),
+            @ApiImplicitParam(name = "limit",value = "每页显示数",required = true,dataType = "Long"),
+            @ApiImplicitParam(name = "teacherQuery",value = "查询条件实体",required = true,paramType = "path")
+    }
+    )
+    @PostMapping("pageList/{page}/{limit}")
     public Rr pageList(
-            @ApiParam(name = "page", value = "当前页码", required = true)
             @PathVariable Long page,
-
-            @ApiParam(name = "limit", value = "每页记录数", required = true)
             @PathVariable Long limit,
-
-            @ApiParam(name = "teacherQuery", value = "查询对象", required = false)
-            TeacherQuery teacherQuery){
+            @RequestBody TeacherQuery teacherQuery){
 
         Page<EduTeacher> pageParam = new Page<>(page, limit);
 
@@ -73,9 +72,12 @@ public class EduTeacherController {
     }
 
     @ApiOperation("新增讲师")
+    @ApiImplicitParams({
+             @ApiImplicitParam(name = "eduTeacher",value = "讲师实体",required = true,paramType = "path")
+    }
+    )
     @PostMapping("save")
     public Rr save(
-            @ApiParam(name = "eduTeacher",value = "讲师",required = true)
             @RequestBody EduTeacher eduTeacher){
         eduTeacherService.save(eduTeacher);
         return Rr.ok();
@@ -92,17 +94,16 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "根据ID修改讲师")
-    @PutMapping("{id}")
+    @PutMapping("update")
     public Rr updateById(
-            @ApiParam(name = "id", value = "讲师ID", required = true)
-            @PathVariable String id,
-
             @ApiParam(name = "eduTeacher", value = "讲师", required = true)
             @RequestBody EduTeacher eduTeacher){
-        eduTeacher.setId(id);
         boolean b = eduTeacherService.updateById(eduTeacher);
-
-        return Rr.ok();
+        if (b){
+            return Rr.ok();
+        } else {
+            return Rr.error();
+        }
 
     }
 }

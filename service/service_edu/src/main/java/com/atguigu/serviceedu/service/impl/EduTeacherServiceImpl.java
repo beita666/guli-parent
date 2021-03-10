@@ -52,6 +52,7 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
         if (!StringUtils.isEmpty(end)){
             queryWrapper.le("gmt_modified",end);
         }
+        queryWrapper.orderByDesc("gmt_create");
 
         baseMapper.selectPage(page,queryWrapper);
     }
