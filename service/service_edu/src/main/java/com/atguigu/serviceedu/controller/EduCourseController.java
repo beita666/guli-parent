@@ -1,9 +1,11 @@
 package com.atguigu.serviceedu.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.atguigu.commonutils.Rr;
+import com.atguigu.serviceedu.entity.vo.CourseInfoForm;
+import com.atguigu.serviceedu.service.EduCourseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -15,7 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/serviceedu/edu-course")
+@CrossOrigin
 public class EduCourseController {
 
+    @Autowired
+    private EduCourseService eduCourseService;
+
+
+    @PostMapping("addCourseInfo")
+    public Rr addCourseInfo(@RequestBody CourseInfoForm courseInfoForm){
+
+        eduCourseService.addCourseInfo(courseInfoForm);
+
+        return Rr.ok();
+    }
 }
 
